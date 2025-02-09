@@ -1,0 +1,63 @@
+export ZSH="$HOME/.oh-my-zsh"
+
+ZSH_THEME="dst"
+plugins=(git)
+
+
+export PATH=$PATH:/home/max/.local/bin
+source $ZSH/oh-my-zsh.sh
+
+alias t="tmux"
+alias at="tmux attach -t"
+alias vim="nvim"
+alias esc="deactivate"
+
+
+
+
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+if [ ! -d "$ZINIT_HOME" ]; then
+   mkdir -p "$(dirname $ZINIT_HOME)"
+   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+source "${ZINIT_HOME}/zinit.zsh"
+
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+
+helm_build() {
+  local charts_folder="$1"
+  
+  if [ -z "$charts_folder" ]; then
+    echo "Please provide the path to the charts folder."
+    return 1
+  fi
+
+  if [ ! -d "$charts_folder" ]; then
+    echo "The provided path is not a valid directory."
+    return 1
+  fi
+
+  for dir in "$charts_folder"/*/ ; do
+    if [ -f "$dir/Chart.yaml" ]; then
+      echo "Updating dependencies for $dir"
+      helm dependency update "$dir"
+    fi
+  done
+}
