@@ -11,7 +11,7 @@ alias t="tmux"
 alias at="tmux attach -t"
 alias vim="nvim"
 alias esc="deactivate"
-
+alias k="kubectl"
 
 
 
@@ -41,7 +41,7 @@ export NVM_DIR="$HOME/.nvm"
 
 
 
-helm_build() {
+function helm_build {
   local charts_folder="$1"
   
   if [ -z "$charts_folder" ]; then
@@ -61,3 +61,21 @@ helm_build() {
     fi
   done
 }
+
+function venv {
+  VENV_PATH="."
+  if [ ! -z "$1" ]; then
+    echo "Checking $1 for a venv"
+    VENV_PATH=$1
+  fi
+
+  if ! ls "$VENV_PATH" | grep -q "venv" ; then
+    echo "Creating new venv"
+    python3 -m venv "$VENV_PATH/venv"
+  fi
+
+  echo "Entering venv"
+  . "$VENV_PATH/venv/bin/activate"
+}
+
+source ~/.termconfig
