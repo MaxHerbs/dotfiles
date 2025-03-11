@@ -5,7 +5,6 @@ mkdir -p "$DOWNLOAD_DIR"
 HTML_CONTENT=$(curl -s $BASE_URL)
 FONT_LINKS=$(echo "$HTML_CONTENT" | grep -Eo 'https://github.com/ryanoasis/nerd-fonts/releases/download/[^"]+\.zip' | head -n 20)
 
-Download each font into the specified directory
 for link in $FONT_LINKS; do
   font_name=$(basename $link)
   curl -L -o "$DOWNLOAD_DIR/$font_name" "$link"
