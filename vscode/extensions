@@ -5,3 +5,6 @@ ms-vscode-remote.remote-containers
 rust-lang.rust-analyzer
 serayuzgur.crates
 vscodevim.vim
+dbaeumer.vscode-eslint
+eamodio.gitlens
+ms-vscode-remote.remote-ssh
