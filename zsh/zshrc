@@ -13,7 +13,36 @@ alias vim="nvim"
 alias esc="deactivate"
 alias k="kubectl"
 
+alias kaf='kubectl apply -f'
+alias kdf='kubectl delete -f'
 
+alias kgp='kubectl get pods'
+alias kgs='kubectl get svc'
+alias kgn='kubectl get nodes'
+alias kgd='kubectl get deployments'
+alias kgss='kubectl get statefulsets'
+alias kgns='kubectl get namespaces'
+alias kgi='kubectl get ingress'
+
+alias kdp='kubectl describe pod'
+alias kds='kubectl describe svc'
+alias kdd='kubectl describe deployment'
+alias kdd='kubectl describe ingress'
+
+alias kl='kubectl logs'
+alias klf='kubectl logs -f'
+alias ke='kubectl exec -it'
+
+alias kcn='kubectl config set-context --current --namespace'
+alias kgnc='kubectl config view --minify --output "jsonpath={..namespace}"'
+
+alias kcc='kubectl config current-context'
+alias kcs='kubectl config use-context'
+alias kcl='kubectl config get-contexts'
+
+alias ktop='kubectl top pods'
+alias ktn='kubectl top nodes'
+alias kw='kubectl get pods -o wide'
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
